@@ -14,12 +14,12 @@ const state = {
     {
       options: ['a', 'b', 'c', 'd'],
       answerIndex: 0,
-      answerContent:'208'
+      answerContent:'4'
     },
     {
       options: ['a', 'b', 'c', 'd'],
-      answerIndex: 0,
-      answerContent:'105'
+      answerIndex: 2,
+      answerContent:'12'
     }
   ]
 };
