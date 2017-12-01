@@ -8,25 +8,12 @@ const {AnswerInfo,postAnswer} = require('../tophp');
 
 const state = {
   postArr: [],//答题情况
-  goldnum: 0,//金币数
   isPost: false,//是否已经提交答案
-  questions: [//题目
-    {
-      options: ['a', 'b', 'c', 'd'],
-      answerIndex: 0,
-      answerContent:'4'
-    },
-    {
-      options: ['a', 'b', 'c', 'd'],
-      answerIndex: 2,
-      answerContent:'12'
-    }
-  ]
 };
 const getters = {};
 const actions = {
   postAnswer({state}){
-    postAnswer(state.postArr, state.questions.length);
+    postAnswer(state.postArr, 1);
   }
 };
 const mutations = {

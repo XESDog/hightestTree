@@ -39,7 +39,6 @@ export default {
   name: 'Start',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
     }
   },
   mounted() {
@@ -60,16 +59,19 @@ export default {
         let targetSpace;
         let answerSpaceStatus = [];//6\7\8\9
 
+        //提交
         exportRoot.submitBtn.on('mousedown',function () {
           if(answerSpaceStatus[0]&&answerSpaceStatus[1]&&answerSpaceStatus[2]&&answerSpaceStatus[3]) {
             if(answerSpaceStatus[0] + answerSpaceStatus[1] - answerSpaceStatus[2] === answerSpaceStatus[3]){
-              console.log('success');
               let answerInfo=new AnswerInfo();
-              answerInfo.success()
-              // self.$store.state.push
+              answerInfo.success(0,"")
+              self.$store.state.postArr.push(answerInfo);
+              self.$store.dispatch('postAnswer')
             }else{
               let answerInfo=new AnswerInfo();
-              answerInfo.fail()
+              answerInfo.fail(0, "");
+              self.$store.state.postArr.push(answerInfo);
+              self.$store.dispatch('postAnswer')
             }
           }else{
             console.log('还没填完');
