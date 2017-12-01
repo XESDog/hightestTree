@@ -13,15 +13,23 @@
 <meta name="authoring-tool" content="Adobe_Animate_CC">
 <title>source</title>
 <!-- write your code here -->
+<style>
+  #animation_container {
+	position:absolute;
+	margin:auto;
+	left:0;right:0;
+	top:0;bottom:0;
+  }
+</style>
 <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
-<script src="source.js?1511948151320"></script>
+<script src="source.js?1512119441186"></script>
 <script>
 var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 function init() {
 	canvas = document.getElementById("canvas");
 	anim_container = document.getElementById("animation_container");
 	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=AdobeAn.getComposition("397C013A9DAC4A65A5F98BE97E083478");
+	var comp=AdobeAn.getComposition("63E0EA705EDF4E2C9F7762D61C88AD1D");
 	var lib=comp.getLibrary();
 	var loader = new createjs.LoadQueue(false);
 	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
@@ -87,7 +95,7 @@ function handleComplete(evt,comp) {
 			stage.tickOnUpdate = true;		
 		}
 	}
-	makeResponsive(false,'both',false,1);	
+	makeResponsive(true,'both',false,1);	
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 }

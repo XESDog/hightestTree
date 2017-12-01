@@ -45,87 +45,105 @@ export default {
   mounted() {
     const self = this;
     const questions = this.$store.state.questions;
-    init('397C013A9DAC4A65A5F98BE97E083478', 'source', true)
+    init('63E0EA705EDF4E2C9F7762D61C88AD1D', 'source', true)
       .then(({lib, exportRoot}) => new Promise(resolve => {
 
         const loading = document.getElementsByClassName('page-loading')[0];
         loading.style.visibility = 'hidden';
 
-        let questionLength = questions.length;
 
-        for (let i = 0; i < questionLength; i++) {
+        //your code
+        let answerSpaces = [exportRoot['space_0'], exportRoot['space_1']
+          , exportRoot['space_2'], exportRoot['space_3']];//答题框数据
+        let mousemoveListen;
+        let pressupListen;
+        let targetSpace;
+        let answerSpaceStatus = [];//6\7\8\9
 
-          exportRoot.gameMc.on(`question_${i}`, (function () {
+        exportRoot.submitBtn.on('mousedown',function () {
+          if(answerSpaceStatus[0]&&answerSpaceStatus[1]&&answerSpaceStatus[2]&&answerSpaceStatus[3]) {
+            if(answerSpaceStatus[0] + answerSpaceStatus[1] - answerSpaceStatus[2] === answerSpaceStatus[3]){
+              console.log('success');
+              let answerInfo=new AnswerInfo();
+              answerInfo.success()
+              // self.$store.state.push
+            }else{
+              let answerInfo=new AnswerInfo();
+              answerInfo.fail()
+            }
+          }else{
+            console.log('还没填完');
+          }
+        })
 
-            cleanOptionMcs();
+        for (let i = 0; i < 4; i++) {
+          let item = exportRoot['num_' + i];
+          //记录原始位置
+          item.p = [item.x, item.y];
 
-            let options = questions[i].options;
-            let answerIndex = questions[i].answerIndex;
-            const monkey = exportRoot.gameMc.monkey;
-            const monkeyPosition = [monkey.x, monkey.y];
-            const j = i;
-            const txt = exportRoot.gameMc[`txt_${j}`];
-            txt.alpha = 0;
+          item.on('mousedown', () => {
 
-            for (let i = 0; i < options.length; i++) {
+            let childNum = exportRoot.numChildren;
+            exportRoot.addChildAt(item, childNum);
+            //清除之前的数据
+            if (item.spaceNum>-1 && answerSpaceStatus[item.spaceNum]) {
+              answerSpaceStatus[item.spaceNum] = null;
+            }
 
-              const option = this[`option_${j}_${options[i]}`];
-              let lock = false;
-              option.cursor = 'pointer';
-              optionMcs.push(option);
+            mousemoveListen = exportRoot.stage.on('stagemousemove', (e) => {
+              item.x = e.localX;
+              item.y = e.localY;
+              let hitNum = hitTestSpace(item);
+              if (hitNum > -1) {
+                targetSpace = exportRoot['space_' + hitNum]
+                targetSpace.gotoAndStop(1)
 
-              option.listen = option.on('click', function () {
-                if (lock) return;
-                lock = true;
-                let distance = Math.abs(monkey.x - option.x);
-                monkey.gotoAndStop('run');
-                tweenAnimatePromise(monkey, {x: option.x}, distance * 4)
-                  .then(() => {
-                    monkey.gotoAndStop('stand');
-                  })
-                  .then(() => {
-                    return flashAnimatePromise(option)
-                  })
-                  .then(() => {
-                    const answerInfo = new AnswerInfo();
-                    if (i === answerIndex) {
-                      option.visible = false;
-                      monkey.gotoAndStop('catch');
-
-                      answerInfo.success(j, "");
-                      self.$store.state.postArr.push(answerInfo);
-
-                      return flashAnimatePromise(monkey.getChildAt(0));
-                    } else {
-                      answerInfo.fail(j, "");
-                      self.$store.state.postArr.push(answerInfo);
-                    }
-                  })
-                  .then(() => {
-                    return new Promise(resolve=>{
-                      setTimeout(function () {
-                        return resolve();
-                      }, 1000)
-                    })
-
-                  })
-                  .then(() => {
-                    monkey.x = monkeyPosition[0];
-                    monkey.gotoAndStop('stand');
-                    if (j === questionLength - 1) {
-                      //题目答完
-                      cleanOptionMcs();
-                      self.$store.commit('setPost', true);
-                      self.$store.dispatch('postAnswer');
-                    } else {
-                      exportRoot.gameMc.gotoAndStop(j + 2);//第0帧是片头，第1帧是答题1对应j=0，要跳到第2题j=j+2
-                    }
-                    lock = false;
-                  })
+              }
+              answerSpaces.forEach((value, index) => {
+                if (index !== hitNum) {
+                  value.gotoAndStop(0)
+                }
               })
 
+            });
+            pressupListen = exportRoot.stage.on('pressup', (e) => {
+
+              let hitNum = hitTestSpace(item);
+
+              if (hitNum > -1 && !answerSpaceStatus[hitNum]) {
+                item.x = exportRoot['space_' + hitNum].x;
+                item.y = exportRoot['space_' + hitNum].y;
+                answerSpaceStatus[hitNum] = item.value;
+                item.spaceNum = hitNum;
+              } else {
+                item.x = item.p[0];
+                item.y = item.p[1];
+                item.spaceNum = null;
+              }
+
+              answerSpaces.forEach((value, index) => {
+                value.gotoAndStop(0)
+              })
+
+              exportRoot.stage.off('stagemousemove', mousemoveListen);
+              exportRoot.stage.off('pressup', pressupListen);
+
+            })
+          })
+
+        }
+
+        function hitTestSpace(item) {
+          let numBounds = new createjs.Rectangle(item.x - 80, item.y - 80, 160, 160);
+          let index = -1;
+          answerSpaces.some((value, i) => {
+            if (numBounds.intersects(value.bounds)) {
+              index = i;
+              return true;
             }
-          }).bind(exportRoot.gameMc))
+
+          });
+          return index;
         }
 
       }));
