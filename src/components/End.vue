@@ -2,19 +2,11 @@
   <div>
     <transition name="fade">
       <div v-show='fadeIn'>
-        <img src='../assets/bg.png' class="bg"/>
+        <img src='../assets/load.png' class="bg"/>
         <img src="../assets/result.png" class="score"/>
         <img src="../assets/close.png" class="close" @click="click()"/>
         <p class="txt">{{$store.state.goldnum}}</p>
         <div class="timeout">{{time}}s</div>
-        <div style="position: absolute;left:5.2rem;top:6rem;font-size: 0.5rem">
-          <div v-for="(item,index) in $store.state.postArr">
-            ({{index + 1}})<img style="height: 0.4rem;margin: 0 0.1rem"
-                                :src="item.rightnum?'./static/right.png':'./static/wrong.png'">
-            <div style="font-size: 0.4rem;color: forestgreen">正确答案<span
-              style="color: black">{{$store.state.questions[index].answerContent}}</span></div>
-          </div>
-        </div>
       </div>
     </transition>
   </div>

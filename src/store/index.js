@@ -9,6 +9,7 @@ const {AnswerInfo,postAnswer} = require('../tophp');
 const state = {
   postArr: [],//答题情况
   isPost: false,//是否已经提交答案
+  goldnum:0,
 };
 const getters = {};
 const actions = {

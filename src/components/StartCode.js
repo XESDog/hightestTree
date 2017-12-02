@@ -43,7 +43,6 @@ export default {
   },
   mounted() {
     const self = this;
-    const questions = this.$store.state.questions;
     init('63E0EA705EDF4E2C9F7762D61C88AD1D', 'source', true)
       .then(({lib, exportRoot}) => new Promise(resolve => {
 
