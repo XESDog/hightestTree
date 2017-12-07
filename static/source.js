@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"source_atlas_", frames: [[0,0,3686,1990],[0,6259,349,369],[1193,6259,262,251],[656,6259,270,275],[928,6259,263,259],[351,6259,303,311],[1457,6259,256,252],[1193,6512,163,166],[0,3984,2273,2273],[202,6630,70,70],[0,1992,3686,1990],[0,6630,200,80]]}
+		{name:"source_atlas_", frames: [[0,1992,3686,1990],[0,0,3686,1990],[0,6259,349,369],[1193,6259,262,251],[656,6259,270,275],[928,6259,263,259],[351,6259,303,311],[1457,6259,256,252],[1193,6512,163,166],[0,3984,2273,2273],[202,6630,70,70],[0,6630,200,80]]}
 ];
 
 
@@ -11,77 +11,77 @@ lib.ssMetadata = [
 
 
 
-(lib.bm_23 = function() {
+(lib.Bitmap1 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(0);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_24 = function() {
+(lib.bm_23 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_25 = function() {
+(lib.bm_24 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_26 = function() {
+(lib.bm_25 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(3);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_27 = function() {
+(lib.bm_26 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(4);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_28 = function() {
+(lib.bm_27 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(5);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_29 = function() {
+(lib.bm_28 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(6);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_30 = function() {
+(lib.bm_29 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(7);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_31 = function() {
+(lib.bm_30 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(8);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_32 = function() {
+(lib.bm_31 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(9);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.bm_33 = function() {
+(lib.bm_32 = function() {
 	this.spriteSheet = ss["source_atlas_"];
 	this.gotoAndStop(10);
 }).prototype = p = new cjs.Sprite();
@@ -131,7 +131,7 @@ p.nominalBounds = null;
 	this.initialize(mode,startPosition,loop,{});
 
 	// 图层 1
-	this.instance = new lib.bm_33();
+	this.instance = new lib.Bitmap1();
 	this.instance.parent = this;
 	this.instance.setTransform(-1843,-995);
 
@@ -1022,7 +1022,7 @@ p.nominalBounds = new cjs.Rectangle(-85,-85,170,170);
 	this.instance = new lib.graph_21("synched",0);
 	this.instance.parent = this;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).to({rotation:360},96).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-1136.6,-1136.6,2273.4,2273.4);
@@ -1341,8 +1341,8 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{loadTimeout:1000000,src:"static/images/source_atlas_.png?1512612205673", id:"source_atlas_"},
-		{loadTimeout:1000000,src:"static/sounds/effect.mp3?1512612205752", id:"effect"}
+		{loadTimeout:1000000,src:"static/images/source_atlas_.png?1512616708949", id:"source_atlas_"},
+		{loadTimeout:1000000,src:"static/sounds/effect.mp3?1512616709022", id:"effect"}
 	],
 	preloads: []
 };

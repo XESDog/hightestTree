@@ -7,6 +7,11 @@ import store from './store'
 
 Vue.config.productionTip = false;
 
+function playSound(id, loop) {
+  return createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
+}
+window.playSound=playSound
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
