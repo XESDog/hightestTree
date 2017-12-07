@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"source_atlas_", frames: [[0,1992,3686,1990],[0,6259,349,369],[1193,6259,262,251],[656,6259,270,275],[928,6259,263,259],[351,6259,303,311],[1457,6259,256,252],[1193,6512,163,166],[0,3984,2273,2273],[202,6630,70,70],[0,0,3686,1990],[0,6630,200,80]]}
+		{name:"source_atlas_", frames: [[0,0,3686,1990],[0,6259,349,369],[1193,6259,262,251],[656,6259,270,275],[928,6259,263,259],[351,6259,303,311],[1457,6259,256,252],[1193,6512,163,166],[0,3984,2273,2273],[202,6630,70,70],[0,1992,3686,1990],[0,6630,200,80]]}
 ];
 
 
@@ -107,6 +107,24 @@ lib.ssMetadata = [
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-100,-40,200,80);
+
+
+(lib.soundEffect = function(mode,startPosition,loop) {
+	this.initialize(mode,startPosition,loop,{});
+
+	// timeline functions:
+	this.frame_0 = function() {
+		this.stop();
+	}
+	this.frame_1 = function() {
+		playSound("effect");
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).call(this.frame_0).wait(1).call(this.frame_1).wait(1));
+
+}).prototype = p = new cjs.MovieClip();
+p.nominalBounds = null;
 
 
 (lib.graph_22 = function(mode,startPosition,loop) {
@@ -465,7 +483,7 @@ p.nominalBounds = new cjs.Rectangle(-143.5,-48.5,287.1,97);
 	this.instance.parent = this;
 	this.instance.setTransform(-35,-35);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1).to({scaleX:1.1,scaleY:1.1,x:-38,y:-38},0).wait(2).to({scaleX:1,scaleY:1,x:-35,y:-35},0).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(-35,-35,70,70);
@@ -1220,6 +1238,10 @@ p.nominalBounds = new cjs.Rectangle(-1843,-850.9,3686,1990);
 		this.space_1.bounds=new createjs.Rectangle(845-85,557-85,170,170)
 		this.space_2.bounds=new createjs.Rectangle(1093-85,557-85,170,170)
 		this.space_3.bounds=new createjs.Rectangle(1357-85,557-85,170,170)
+
+		this.soundBtn.on('click',(function(){
+			this.soundEffect.gotoAndPlay(1);
+			}).bind(this));
 	}
 
 	// actions tween:
@@ -1236,10 +1258,11 @@ p.nominalBounds = new cjs.Rectangle(-1843,-850.9,3686,1990);
 	this.timeline.addTween(cjs.Tween.get(this.submitBtn).wait(1).to({_off:false},0).wait(1));
 
 	// layer 3
-	this.instance = new lib.btn_5();
-	this.instance.parent = this;
-	this.instance.setTransform(119.8,143.4);
-	new cjs.ButtonHelper(this.instance, 0, 1, 1);
+	this.soundBtn = new lib.btn_5();
+	this.soundBtn.name = "soundBtn";
+	this.soundBtn.parent = this;
+	this.soundBtn.setTransform(119.8,143.4);
+	new cjs.ButtonHelper(this.soundBtn, 0, 1, 2, false, new lib.btn_5(), 3);
 
 	this.num_3 = new lib.btn_4();
 	this.num_3.name = "num_3";
@@ -1285,15 +1308,19 @@ p.nominalBounds = new cjs.Rectangle(-1843,-850.9,3686,1990);
 	this.space_0.parent = this;
 	this.space_0.setTransform(556.8,557.1);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.space_0},{t:this.space_1},{t:this.space_2},{t:this.space_3},{t:this.num_0},{t:this.num_1},{t:this.num_2},{t:this.num_3},{t:this.instance}]},1).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.space_0},{t:this.space_1},{t:this.space_2},{t:this.space_3},{t:this.num_0},{t:this.num_1},{t:this.num_2},{t:this.num_3},{t:this.soundBtn}]},1).wait(1));
 
 	// layer 4
-	this.instance_1 = new lib.bm_23();
-	this.instance_1.parent = this;
-	this.instance_1.setTransform(-608,-282);
-	this.instance_1._off = true;
+	this.soundEffect = new lib.soundEffect();
+	this.soundEffect.name = "soundEffect";
+	this.soundEffect.parent = this;
+	this.soundEffect.setTransform(-674.1,126.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1).to({_off:false},0).wait(1));
+	this.instance = new lib.bm_23();
+	this.instance.parent = this;
+	this.instance.setTransform(-608,-282);
+
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[]}).to({state:[{t:this.instance},{t:this.soundEffect}]},1).wait(1));
 
 	// layer 4
 	this.startMc = new lib.mc_6();
@@ -1314,7 +1341,8 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"static/images/source_atlas_.png?1512119441126", id:"source_atlas_"}
+		{loadTimeout:1000000,src:"static/images/source_atlas_.png?1512612205673", id:"source_atlas_"},
+		{loadTimeout:1000000,src:"static/sounds/effect.mp3?1512612205752", id:"effect"}
 	],
 	preloads: []
 };
