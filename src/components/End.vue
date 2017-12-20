@@ -30,7 +30,7 @@
   .txt {
     position: absolute;
     left: 9.09rem;
-    top: 3.75rem;
+    top: 4.1rem;
     font-size: 0.5rem;
     width: 1.6rem;
     color: red;

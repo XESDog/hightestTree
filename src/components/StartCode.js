@@ -43,7 +43,7 @@ export default {
   },
   mounted() {
     const self = this;
-    init('63E0EA705EDF4E2C9F7762D61C88AD1D', 'source', true)
+    init('A6AF9B88387745EAB8D74C5C5AC76E68', 'source', true)
       .then(({lib, exportRoot}) => new Promise(resolve => {
 
         const loading = document.getElementsByClassName('page-loading')[0];
